@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity 
@@ -25,13 +26,25 @@ public class Colaborador {
 	@Column(name = "cui")
 	private String cui;
 	
-	
-	
 	@JsonIgnore
-    @ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-    @JoinColumn(name="id_sucursal")
+    @ManyToOne(cascade= {CascadeType.MERGE})
+	@JoinColumn(name="id_sucursal")
     private Sucursal sucursal;
 	
+	@JsonIgnore
+    @ManyToOne(cascade= CascadeType.MERGE)
+	@JoinColumn(name="id_persona")
+    private Persona persona;
+	
+	
+	 public boolean validacionDatos(){
+	    	boolean retorno = false;
+	    	if(sucursal!=null || sucursal.validacionDatos()) {
+	    		retorno = true;
+	    	}
+	    	
+	    	return retorno;
+	    } 
 	
 
 	public long getId_Colaborador() {
@@ -65,8 +78,12 @@ public class Colaborador {
 	public void setSucursal(Sucursal sucursal) {
 		this.sucursal = sucursal;
 	}
-	
-	
-	
-	 
+
+	public Persona getPersona() {
+		return persona;
+	}
+
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 }

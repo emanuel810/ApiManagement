@@ -1,6 +1,7 @@
 package com.ejercicio.AdministracionEmpresa.Controllers;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,43 +11,41 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.ejercicio.AdministracionEmpresa.Dto.EmpresasDto;
-import com.ejercicio.AdministracionEmpresa.Entities.Empresa;
-import com.ejercicio.AdministracionEmpresa.Services.EmpresaService;
+import com.ejercicio.AdministracionEmpresa.Dto.PersonaDto;
+import com.ejercicio.AdministracionEmpresa.Entities.Persona;
+import com.ejercicio.AdministracionEmpresa.Services.PersonaService;
 
 @RestController
-@RequestMapping("/empresa")
-public class EmpresaController {
-	
-	
+@RequestMapping("/persona")
+public class PersonaController {
+
 	@Autowired
-	EmpresaService empresaService;
+	PersonaService personaService;
 	
 	@GetMapping
-    public List<EmpresasDto> listaEmpresa(){
-        return empresaService.listarEmpresa();
+    public List<PersonaDto> listaEmpresa(){
+        return personaService.listarPersona();
     }
 	
 	@GetMapping(value= "/{id}")
-    public EmpresasDto obtenerEmpresa(@PathVariable Long id){
-        return  empresaService.buscarEmpresa(id);
+    public PersonaDto obtenerEmpresa(@PathVariable Long id){
+        return  personaService.buscarPersonas(id);
     }
 	
 	@PostMapping()
-	public EmpresasDto crearEmpresa(@RequestBody EmpresasDto empresa) {
-		return empresaService.crearEmpresa(empresa);
+	public PersonaDto crearEmpresa(@RequestBody PersonaDto personaDto) {
+		return personaService.crearPersona(personaDto);
 	}
 
 
     @PutMapping("/{id}")
-    public void modificarEmpresa(@PathVariable Long id,@RequestBody Empresa empresa){
-    	empresaService.editarEmpresa(empresa, id);
+    public void modificarEmpresa(@PathVariable Long id,@RequestBody Persona persona){
+    	personaService.editarPersona(persona, id);
     }
 
     @DeleteMapping("/{id}")
     public void borrarEmpresa(@PathVariable Long id){
-    	empresaService.borrarEmpresa(id) ;
+    	personaService.borrarPersona(id) ;
     }
-
+	
 }

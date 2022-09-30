@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity 
 @Table(name="sucursales") 
 public class Sucursal {
-
 	
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_sucursal;
@@ -31,18 +31,28 @@ public class Sucursal {
 	
     @Column(name = "telefono")
 	private String telefono;
-    
+        
     @JsonIgnore
-    @ManyToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @ManyToOne(cascade= CascadeType.MERGE)
     @JoinColumn(name="id_empresa")
     private Empresa empresa;
     
     
-    @OneToMany(mappedBy="sucursal",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JsonIgnore
+    @OneToMany(mappedBy="sucursal",cascade= CascadeType.MERGE)
     List<Colaborador> colaboradores;
-    
-    
 
+
+    
+    public boolean validacionDatos(){
+    	boolean retorno = false;
+    	if(empresa!=null || empresa.validarDatos()) {
+    		retorno = true;
+    	}
+    	
+    	return retorno;
+    } 
+    
 	public long getId_sucursal() {
 		return id_sucursal;
 	}
@@ -92,6 +102,15 @@ public class Sucursal {
 	}
 
 
-	
-  
+	@Override
+	public String toString() {
+		return "Sucursal{" +
+				"id_sucursal=" + id_sucursal +
+				", nombre='" + nombre + '\'' +
+				", direccion='" + direccion + '\'' +
+				", telefono='" + telefono + '\'' +
+				", empresa=" + empresa +
+				", colaboradores=" + colaboradores +
+				'}';
+	}
 }

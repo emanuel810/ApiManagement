@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ejercicio.AdministracionEmpresa.Dto.SucursalDto;
 import com.ejercicio.AdministracionEmpresa.Entities.Empresa;
 import com.ejercicio.AdministracionEmpresa.Entities.Sucursal;
 import com.ejercicio.AdministracionEmpresa.Services.SucursalService;
@@ -25,23 +26,23 @@ public class SucursalController {
 	SucursalService sucursalService;
 	
 	@GetMapping
-    public List<Sucursal> listaSucursal(){
+    public List<SucursalDto> listaSucursal(){
         return sucursalService.listarSucursales();
     }
 	
 	@GetMapping(value= "/{id}")
-    public Sucursal obtenerSucursal(@PathVariable Long id){
+    public SucursalDto obtenerSucursal(@PathVariable Long id){
         return  sucursalService.buscarSucursales(id);
     }
 
 	@PostMapping()
-	public Sucursal crearSucursal(@RequestBody Sucursal sucursales) {
+	public SucursalDto crearSucursal(@RequestBody SucursalDto sucursales) {
 		return sucursalService.crearSucursales(sucursales);
 	}
 	
-    @PutMapping("/{id}")
-    public void modificarSucursal(@PathVariable Long id,@RequestBody Sucursal sucursales){
-    	sucursalService.editarSucursales(sucursales, id);
+    @PutMapping()
+    public void modificarSucursal(@RequestBody SucursalDto sucursalDto){
+    	sucursalService.editarSucursales(sucursalDto);
     }
 
     @DeleteMapping("/{id}")

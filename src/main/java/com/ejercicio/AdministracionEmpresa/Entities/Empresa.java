@@ -10,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity 
 @Table(name="empresa") 
 public class Empresa {
 	
-
+	
+	 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_empresa;
@@ -25,11 +27,25 @@ public class Empresa {
  
     @Column(name = "pais")
 	private String pais;
+
     
-    @OneToMany(mappedBy="empresa",cascade= {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+    @JsonIgnore
+    @OneToMany(mappedBy="empresa",cascade= CascadeType.MERGE)
     List<Sucursal> sucursales;
 
 
+    public boolean validarDatos() {
+    	boolean retorno = true;
+    	if(nombre==null && nombre.isEmpty()) {
+    		retorno = false;
+    		
+    	}
+    	if(pais==null && pais.isEmpty()) {
+    		retorno = false;
+    	}
+    	return retorno;
+    }
+    
 	public long getId_empresa() {
 		return id_empresa;
 	}

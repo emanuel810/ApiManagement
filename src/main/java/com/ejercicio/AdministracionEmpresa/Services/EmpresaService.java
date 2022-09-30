@@ -2,17 +2,18 @@ package com.ejercicio.AdministracionEmpresa.Services;
 
 import java.util.List;
 
+import com.ejercicio.AdministracionEmpresa.Dto.EmpresasDto;
 import com.ejercicio.AdministracionEmpresa.Entities.Empresa;
 
 
 public interface EmpresaService {
 	
 	
-	public List<Empresa> listarEmpresa();
+	public List<EmpresasDto> listarEmpresa();
 	
-    public Empresa buscarEmpresa(Long id);
+    public EmpresasDto buscarEmpresa(Long id);
     
-    public Empresa crearEmpresa(Empresa empresa);
+    public EmpresasDto crearEmpresa(EmpresasDto empresa);
 
     public void editarEmpresa(Empresa empresa, Long id);
 
